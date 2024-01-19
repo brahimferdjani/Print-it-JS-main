@@ -18,7 +18,6 @@ const slides = [
 	}
 ]
 
-const img = document.querySelectorAll(".banner-img");
 let index = 0;
 
 function updateImage() {
@@ -32,6 +31,21 @@ function updateImage() {
 	img.src = cheminSrc;
 }
 
+function reverseImage() {
+	//mettre index a la derniere image 
+	index = 3;
+	//recuperer balise img
+	const img = document.querySelector(".banner-img");
+	//recuperer nom du fichier de la derniere image 
+	const nomImage = slides[index].image;
+	//construire chemin src
+	const cheminSrc = "./assets/images/slideshow/" + nomImage;
+	//mettre a jour la src 
+	img.src = cheminSrc;
+
+}
+
+
 //fonction init met en marche javascript 
 function init() {
 	//on appelle les variables dans le bloc de code 
@@ -39,19 +53,33 @@ function init() {
 	const flecheGauche = document.querySelector(".arrow_left");
 	//on met en marche les evenements
 	flecheDroite.addEventListener("click", () => {
+		updateTag();
 		updateImage();
 		index++;
-		if (index == 4){
-			index=0;
+		if (index == 4) {
+			index = 0;
 		}
 	});
-	flecheGauche.addEventListener("click", ()=> {
+	flecheGauche.addEventListener("click", () => {
 		updateImage();
 		index--;
-		if(index == 0){
-			index =4;
-		}
-	})
+});
 };
 
-	init();
+init();
+
+function updateTag() {
+	//cliber la class
+	const paragraph = document.querySelector(".tagline");
+	console.log(paragraph);
+	//on recupere le tag du fichier d'image
+	let tagImage = slides[index].tagLine;
+	console.log(tagImage);
+	//creer balise p
+	const balisePara = document.createElement("p");
+	console.log(balisePara);
+	//lier balise p avec le tagline
+	balisePara.append(tagImage);
+	//lier balise p avec div
+	paragraph.appendChild(balisePara);
+}
