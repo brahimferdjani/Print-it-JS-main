@@ -18,20 +18,40 @@ const slides = [
 	}
 ]
 
-const flecheDroite = document.querySelector(".arrow_right");
-const flecheGauche = document.querySelector(".arrow_left");
-const point = document.querySelectorAll("input[type=button]");
+const img = document.querySelectorAll(".banner-img");
+let index = 0;
 
+function updateImage() {
+	//etape 1 selectionner balise img 
+	const img = document.querySelector(".banner-img");
+	//etape 2 recuperer le nom du fichier de la premiere image des sliders
+	const nomImage = slides[index].image;
+	//etape 3 construire le chemin src
+	const cheminSrc = "./assets/images/slideshow/" + nomImage;
+	//etape 4 mettre a jour le src de la balise image
+	img.src = cheminSrc;
+}
 
-flecheDroite.addEventListener("click", ()=> {
-	const message = "j'ai cliqué sur le boutton droit.";
-	alert(message);
-})
+//fonction init met en marche javascript 
+function init() {
+	//on appelle les variables dans le bloc de code 
+	const flecheDroite = document.querySelector(".arrow_right");
+	const flecheGauche = document.querySelector(".arrow_left");
+	//on met en marche les evenements
+	flecheDroite.addEventListener("click", () => {
+		updateImage();
+		index++;
+		if (index == 4){
+			index=0;
+		}
+	});
+	flecheGauche.addEventListener("click", ()=> {
+		updateImage();
+		index--;
+		if(index == 0){
+			index =4;
+		}
+	})
+};
 
-flecheGauche.addEventListener("click", ()=> {
-	const message ="j'ai cliquê sur le boutton gauche.";
-	alert(message);
-})
-
-
-
+	init();
