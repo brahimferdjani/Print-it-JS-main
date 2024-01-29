@@ -31,23 +31,42 @@ function updateImage() {
 	img.src = cheminSrc;
 }
 
-function reverseImage() {
-	//mettre index a la derniere image 
-	index = 3;
-	//recuperer balise img
-	const img = document.querySelector(".banner-img");
-	//recuperer nom du fichier de la derniere image 
-	const nomImage = slides[index].image;
-	//construire chemin src
-	const cheminSrc = "./assets/images/slideshow/" + nomImage;
-	//mettre a jour la src 
-	img.src = cheminSrc;
-
+function updateTag() {
+	//console.log(index);
+	//cliber la class
+	const paragraph = document.querySelector(".tagline");
+	//console.log(paragraph);
+	//vider contenu de la div
+	paragraph.innerHTML = "";
+	//on recupere le tag du fichier d'image
+	let tagImage = slides[index].tagLine;
+	//console.log(tagImage);
+	//creer balise p
+	const balisePara = document.createElement("p");
+	//console.log(balisePara);
+	//lier balise p avec le tagline
+	balisePara.innerHTML += tagImage;
+	//lier balise p avec div
+	paragraph.appendChild(balisePara);
 }
 
+function updateDot() {
+	//cibler les bouttons
+	const baliseBoutton = document.querySelectorAll(".dots input");
+	console.log(baliseBoutton);
+	for (let i = 0; i < baliseBoutton.length; i++) {
+		baliseBoutton[index].classList.add("dot_selected");
+		if (index > i) { baliseBoutton[i].classList.remove("dot_selected"); }
+		console.log(i);
+	}
+}
 
-//fonction init met en marche javascript 
+//fonction init met en marche les fonctions 
 function init() {
+	updateTag();
+	updateImage();
+	updateDot();
+	index++;
 	//on appelle les variables dans le bloc de code 
 	const flecheDroite = document.querySelector(".arrow_right");
 	const flecheGauche = document.querySelector(".arrow_left");
@@ -55,31 +74,15 @@ function init() {
 	flecheDroite.addEventListener("click", () => {
 		updateTag();
 		updateImage();
-		index++;
-		if (index == 4) {
+		updateDot();
+		if (index == 3) {
 			index = 0;
-		}
+		} else { index++ }
 	});
 	flecheGauche.addEventListener("click", () => {
-		updateImage();
-		index--;
-});
+
+	});
 };
 
 init();
 
-function updateTag() {
-	//cliber la class
-	const paragraph = document.querySelector(".tagline");
-	console.log(paragraph);
-	//on recupere le tag du fichier d'image
-	let tagImage = slides[index].tagLine;
-	console.log(tagImage);
-	//creer balise p
-	const balisePara = document.createElement("p");
-	console.log(balisePara);
-	//lier balise p avec le tagline
-	balisePara.append(tagImage);
-	//lier balise p avec div
-	paragraph.appendChild(balisePara);
-}
