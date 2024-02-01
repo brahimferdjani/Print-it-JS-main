@@ -53,11 +53,11 @@ function updateTag() {
 function updateDot() {
 	//cibler les bouttons
 	const baliseBoutton = document.querySelectorAll(".dots input");
-	console.log(baliseBoutton);
+	//console.log(baliseBoutton);
 	for (let i = 0; i < baliseBoutton.length; i++) {
 		baliseBoutton[index].classList.add("dot_selected");
-		if (index > i) { baliseBoutton[i].classList.remove("dot_selected"); }
-		console.log(i);
+		if (index != i) { baliseBoutton[i].classList.remove("dot_selected"); }
+		//console.log(i);
 	}
 }
 
@@ -66,7 +66,6 @@ function init() {
 	updateTag();
 	updateImage();
 	updateDot();
-	index++;
 	//on appelle les variables dans le bloc de code 
 	const flecheDroite = document.querySelector(".arrow_right");
 	const flecheGauche = document.querySelector(".arrow_left");
@@ -80,7 +79,12 @@ function init() {
 		} else { index++ }
 	});
 	flecheGauche.addEventListener("click", () => {
-
+		updateTag();
+		updateImage();
+		updateDot();
+		if (index == 0) {
+			index = 3;
+		} else { index-- }
 	});
 };
 
