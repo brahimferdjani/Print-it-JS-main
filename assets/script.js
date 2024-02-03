@@ -39,6 +39,7 @@ function updateTag() {
 	//vider contenu de la div
 	paragraph.innerHTML = "";
 	//on recupere le tag du fichier d'image
+	console.log(index);
 	let tagImage = slides[index].tagLine;
 	//console.log(tagImage);
 	//creer balise p
@@ -61,8 +62,18 @@ function updateDot() {
 	}
 }
 
+function createDots () {
+	const divDots = document.querySelector(".dots");
+	console.log(divDots);
+	const inputDots = document.createElement("INPUT");
+	inputDots.setAttribute("type", "button");
+	inputDots.classList.add("dot");
+	divDots.appendChild(inputDots);
+}
+
 //fonction init met en marche les fonctions 
 function init() {
+	for (let i =0; i< slides.length; i++) {createDots();}
 	updateTag();
 	updateImage();
 	updateDot();
@@ -71,20 +82,20 @@ function init() {
 	const flecheGauche = document.querySelector(".arrow_left");
 	//on met en marche les evenements
 	flecheDroite.addEventListener("click", () => {
-		updateTag();
-		updateImage();
-		updateDot();
-		if (index == 3) {
+		if (index == slides.length-1) {
 			index = 0;
 		} else { index++ }
-	});
-	flecheGauche.addEventListener("click", () => {
 		updateTag();
 		updateImage();
 		updateDot();
+	});
+	flecheGauche.addEventListener("click", () => {
 		if (index == 0) {
-			index = 3;
+			index = slides.length-1;
 		} else { index-- }
+		updateTag();
+		updateImage();
+		updateDot();
 	});
 };
 
